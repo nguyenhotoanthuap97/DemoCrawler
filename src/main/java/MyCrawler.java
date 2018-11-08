@@ -7,7 +7,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.OutputStreamWriter; 
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -18,7 +18,8 @@ public class MyCrawler extends WebCrawler {
   @Override
   public boolean shouldVisit(Page referringPage, WebURL url) {
     String href = url.getURL().toLowerCase();
-    return !FILTERS.matcher(href).matches();
+    String referenceDomain = referringPage.getWebURL().getDomain().toLowerCase();
+    return !FILTERS.matcher(href).matches() && href.lastIndexOf(referenceDomain) != -1;
   }
 
   @Override
